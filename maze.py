@@ -25,9 +25,10 @@ class Maze():
                 list.append(Cell(new_x1, new_y1, new_x2, new_y2, self._win))
             self.cells.append(list)
         
-        for cell_list in self.cells:
-            for cell in cell_list:
-                self._draw_cell(cell)
+        if self._win != None:
+            for cell_list in self.cells:
+                for cell in cell_list:
+                    self._draw_cell(cell)
 
     def _draw_cell(self, cell):
         cell.draw()

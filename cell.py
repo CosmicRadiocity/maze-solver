@@ -7,6 +7,7 @@ class Cell():
         self.has_right_wall = True
         self.has_top_wall = True
         self.has_bottom_wall = True
+        self.visited = False
         self._x1 = x1
         self._x2 = x2
         self._y1 = y1
@@ -15,18 +16,25 @@ class Cell():
 
     def draw(self, fill_color="black"):
         top_left = Point(self._x1, self._y1)
-        print(top_left.x, top_left.y)
         top_right = Point(self._x2, self._y1)
         bottom_left = Point(self._x1, self._y2)
         bottom_right = Point(self._x2, self._y2)
         if self.has_left_wall:
             self._win.draw_line(Line(top_left, bottom_left), fill_color)
+        else:
+            self._win.draw_line(Line(top_left, bottom_left), "white")
         if self.has_right_wall:
             self._win.draw_line(Line(top_right, bottom_right), fill_color)
+        else:
+            self._win.draw_line(Line(top_right, bottom_right), "white")
         if self.has_top_wall:
             self._win.draw_line(Line(top_left, top_right), fill_color)
+        else:
+            self._win.draw_line(Line(top_left, top_right), "white")
         if self.has_bottom_wall:
             self._win.draw_line(Line(bottom_left, bottom_right), fill_color)
+        else:
+            self._win.draw_line(Line(bottom_left, bottom_right), "white")
 
     def draw_move(self, to_cell, undo=False):
         center_self = Point((self._x1 + self._x2) // 2, (self._y1 + self._y2) // 2)

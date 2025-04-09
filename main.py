@@ -4,8 +4,9 @@ from cell import Cell
 from maze import Maze
 
 def main():
-    win = Window(800, 600)
-    maze = Maze(10, 10, 10, 10, 50, 50, win)
+    win = Window(800, 800)
+    maze = Maze(15, 15, 15, 15, 50, 50, win)
+    maze.solve()
     win.wait_for_close()
 
 main()

@@ -38,9 +38,7 @@ class Cell():
 
     def draw_move(self, to_cell, undo=False):
         center_self = Point((self._x1 + self._x2) // 2, (self._y1 + self._y2) // 2)
-        print(center_self.x, center_self.y)
         center_target = Point((to_cell._x1 + to_cell._x2) // 2, (to_cell._y1 + to_cell._y2) // 2)
-        print(center_target.x, center_target.y)
         fill_color = "gray"
         if undo:
             fill_color = "red"

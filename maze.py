@@ -35,6 +35,7 @@ class Maze():
                     self._draw_cell(cell)
             self._break_entrance_and_exit()
             self._break_walls_r(0, 0)
+            self._reset_cells_visited()
         
 
     def _draw_cell(self, cell):
@@ -109,3 +110,58 @@ class Maze():
                 self._draw_cell(current)
                 self._draw_cell(next_cell)
                 self._break_walls_r(i, j+1)
+
+    def _reset_cells_visited(self):
+        for cell_list in self.cells:
+            for cell in cell_list:
+                cell.visited = False
+
+    def solve(self):
+        return self._solve_r(0, 0)
+    
+    def _solve_r(self, i, j):
+        self._animate()
+        current = self.cells[i][j]
+        self.cells[i][j].visited = True
+        if current == self.cells[-1][-1]:
+            return True
+        bottom = None
+        top = None
+        right = None
+        left = None
+        if i < len(self.cells) - 1 and not current.has_bottom_wall:
+            bottom = self.cells[i + 1][j]
+            if not bottom.visited:
+                current.draw_move(bottom)
+                if self._solve_r(i+1, j):
+                    return True
+                else:
+                    current.draw_move(bottom, True)
+        if i > 0 and not current.has_top_wall:
+            top = self.cells[i-1][j]
+            if not top.visited:
+                current.draw_move(top)
+                if self._solve_r(i-1, j):
+                    return True
+                else:
+                    current.draw_move(top, True)
+        if j > 0 and not current.has_left_wall:
+            left = self.cells[i][j-1]
+            if not left.visited:
+                current.draw_move(left)
+                if self._solve_r(i, j-1):
+                    return True
+                else:
+                    current.draw_move(left, True)
+        if j < len(self.cells[i]) - 1 and not current.has_right_wall:
+            right = self.cells[i][j+1]
+            if not right.visited:
+                current.draw_move(right)
+                if self._solve_r(i, j+1):
+                    return True
+                else:
+                    current.draw_move(right, True)
+
+        return False
+
+        
